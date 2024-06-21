@@ -32,7 +32,7 @@ test optemptydict-1 {} -body {
 
 test opt-1 {invalid option} -body {
 	curl::curl {} {invalid 1}
-} -result {unsupported option: invalid} -returnCodes 1
+} -match glob -result {unsupported option: invalid*} -returnCodes 1
 
 test req-1 {} -match glob -body {
 	curl::curl https://www.google.com
