@@ -353,9 +353,6 @@ dist: dist-clean $(srcdir)/manifest.uuid
 
 	# Extension files
 	$(DIST_INSTALL_DATA) \
-	    $(srcdir)/ChangeLog \
-	    $(srcdir)/README.sha \
-	    $(srcdir)/license.terms \
 	    $(srcdir)/README \
 	    $(srcdir)/pkgIndex.tcl.in \
 	    $(DIST_DIR)/

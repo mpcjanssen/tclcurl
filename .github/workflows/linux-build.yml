@@ -55,9 +55,3 @@ jobs:
             echo "::error::Failure during Install"
             exit 1
           }
-      - name: Create Distribution Package
-        run: |
-          make dist || {
-            echo "::error::Failure during Distribute"
-            exit 1
-          }
