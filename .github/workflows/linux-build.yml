@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Environment (compiler=${{ matrix.compiler }})
         run: |
-          sudo apt-get install tcl8.6-dev
+          sudo apt-get install tcl8.6-dev libcurl4-openssl-dev
           mkdir "$HOME/install dir"
           curl https://core.tcl-lang.org/tclconfig/tarball/main/tclconfig.tar.gz >tclconfig.tar.gz
           tar xfz tclconfig.tar.gz
