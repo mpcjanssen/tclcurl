@@ -95,7 +95,7 @@ Curl_Cmd(
 		while (done == 0) {
 			char * optStr = Tcl_GetString(key);
 			if (strcmp(optStr,"postfields") == 0) {
-				int bSize;
+				Tcl_Size bSize;
 				char * bytes = Tcl_GetStringFromObj(value,&bSize);
 				res = curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE,bSize);
 				if (res != CURLE_OK) {
@@ -113,7 +113,7 @@ Curl_Cmd(
 				}
 
 			} else if (strcmp(optStr,"httpheader") == 0) {
-				int hobjc;
+				Tcl_Size hobjc;
 				Tcl_Obj **  hobjv;
 				if (Tcl_ListObjGetElements(interp, value, &hobjc, &hobjv) != TCL_OK) {
 					return_code = TCL_ERROR;
@@ -192,7 +192,7 @@ Curl_Init(
     Tcl_Interp* interp)		/* Tcl interpreter */
 {
 
-    if (Tcl_InitStubs(interp, "8.6", 0) == NULL) {
+    if (Tcl_InitStubs(interp, "9.0", 0) == NULL) {
 	return TCL_ERROR;
     }
 
