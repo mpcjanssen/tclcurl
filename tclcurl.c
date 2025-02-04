@@ -52,19 +52,17 @@ Curl_Cmd(
     )
 {
 	int return_code = TCL_OK;
-	CURLcode res;
 	struct curl_slist *headers = NULL;
 	if (objc < 2 || objc > 3) {
 		Tcl_WrongNumArgs(interp,1,objv,"url ?opts?") ;
 		return TCL_ERROR;
 	}
 	Tcl_Obj * content = Tcl_NewStringObj("",-1);
-	Tcl_Obj * resDict;
 	CURL *curl = curl_easy_init();
 	
 	SETSTRINGOPT(curl,interp,CURLOPT_URL,objv[1]);
 
-	res = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION,write_callback);
+	CURLcode res = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 	if (res != CURLE_OK) {
 		Tcl_SetObjResult(interp, Tcl_NewStringObj(curl_easy_strerror(res),-1));
 		return_code = TCL_ERROR;
@@ -161,7 +159,7 @@ Curl_Cmd(
 	}
 
 	// Success
-	resDict = Tcl_NewDictObj();
+	Tcl_Obj *resDict = Tcl_NewDictObj();
 	Tcl_DictObjPut(interp, resDict, Tcl_NewStringObj("content",-1), content);
 
 	GETLONGINFO(curl,interp, resDict,"response_code",CURLINFO_RESPONSE_CODE);
