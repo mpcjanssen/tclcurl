@@ -3,12 +3,9 @@
 #include <curl/curl.h>
 #include "tclcurl.h"
 
-static int Curl_Cmd(void *clientData, Tcl_Interp *interp,
-		int objc, Tcl_Obj *const objv[]);
-
 
 size_t write_callback(char *ptr, size_t size, size_t nmemb, void *clientdata) {
-	Tcl_Obj * data = (Tcl_Obj *)clientdata;
+	Tcl_Obj * data = clientdata;
 	Tcl_AppendToObj(data,ptr,size*nmemb);
 	return size*nmemb;
 
@@ -27,7 +24,6 @@ static void Curl_AppendSupportedOptions(Tcl_Obj * obj) {
 			"userpwd ",
 			"verbose",
 			NULL);
-			return;
 }
 
 
@@ -58,12 +54,12 @@ Curl_Cmd(
 	int return_code = TCL_OK;
 	CURLcode res;
 	struct curl_slist *headers = NULL;
-	Tcl_Obj * content = Tcl_NewStringObj("",-1);
-	Tcl_Obj * resDict;
 	if (objc < 2 || objc > 3) {
 		Tcl_WrongNumArgs(interp,1,objv,"url ?opts?") ;
 		return TCL_ERROR;
 	}
+	Tcl_Obj * content = Tcl_NewStringObj("",-1);
+	Tcl_Obj * resDict;
 	CURL *curl = curl_easy_init();
 	
 	SETSTRINGOPT(curl,interp,CURLOPT_URL,objv[1]);

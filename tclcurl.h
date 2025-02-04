@@ -1,3 +1,6 @@
+#ifndef TCLCURL_H
+#define TCLCURL_H
+
 #define GETLONGINFO(handle, interp, dict, key, info) do {\
 	long lVar;\
 	if (curl_easy_getinfo((handle), (info), &lVar) == CURLE_OK) {\
@@ -35,3 +38,5 @@
 		goto cleanup;\
 	}\
 	} while (0)
+
+#endif // TCLCURL_H
